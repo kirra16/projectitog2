@@ -1,0 +1,9 @@
+﻿.booking-section {
+  padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .booking-section {
+    padding: 2rem 1rem;
+  }
+}

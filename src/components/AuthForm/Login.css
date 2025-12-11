@@ -1,0 +1,9 @@
+﻿.login-section {
+  padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .login-section {
+    padding: 2rem 1rem;
+  }
+}

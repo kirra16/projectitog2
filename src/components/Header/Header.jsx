@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import './Header.css';
 
 const Header = ({ user, setUser }) => {
   const location = useLocation();
@@ -15,7 +16,7 @@ const Header = ({ user, setUser }) => {
       <div className="logo">
         <img src="https://img.freepik.com/free-vector/abstract-company-logo_53876-120501.jpg" alt="Логотип" width="50" height="50" />
       </div>
-      
+
       <nav>
         <ul className="nav-list">
           <li>
@@ -24,7 +25,7 @@ const Header = ({ user, setUser }) => {
             </Link>
           </li>
           <li>
-            <a href="/#table">Наши залы</a>
+            <a href="/#table">Залы</a>
           </li>
           <li>
             <a href="/#reviews">Отзывы</a>
@@ -41,14 +42,14 @@ const Header = ({ user, setUser }) => {
 
       <div className="header-right">
         <div className="contact-info">
-          <img src="https://img.icons8.com/ios-filled/50/000000/whatsapp.png" alt="Телефон" />
+          <img src="https://img.icons8.com/ios-filled/50/000000/whatsapp.png" alt="WhatsApp" />
           <a href="https://wa.me/79281988835">+7 (928) 198-88-35</a>
         </div>
 
         <div className="user-menu">
           {user ? (
             <>
-              <span>Добро пожаловать, {user.name}</span>
+              <span>Привет, {user.name}</span>
               <button onClick={handleLogout} className="logout-btn">
                 Выйти
               </button>

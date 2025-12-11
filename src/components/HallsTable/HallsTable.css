@@ -1,0 +1,44 @@
+.table-section {
+  padding: 3rem 2rem;
+}
+
+.table {
+  background: linear-gradient(135deg, #6d4c41 0%, #5d4037 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+th,
+td {
+  padding: 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #8d6e63;
+}
+
+th {
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 1.1rem;
+}
+
+tr:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: background-color 0.3s ease;
+}
+
+caption {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  caption-side: top;
+  color: white;
+  text-align: center;
+}

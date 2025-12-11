@@ -1,15 +1,16 @@
 import React from 'react';
+import './HallsTable.css';
 
 const HallsTable = ({ halls }) => {
   return (
-    <section id="table" className="table-section">
+    <section id="table" className="table-section content-section">
       <div className="table">
         <table>
-          <caption>Информация о каждом зале</caption>
+          <caption>Доступные банкетные залы</caption>
           <thead>
             <tr>
               <th scope="col">Название</th>
-              <th scope="col">Вместительность</th>
+              <th scope="col">Вместимость</th>
               <th scope="col">Цена за час</th>
             </tr>
           </thead>

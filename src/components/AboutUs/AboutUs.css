@@ -1,0 +1,20 @@
+.info-about-us ul {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 1rem;
+}
+
+.info-about-us ul li {
+  margin-bottom: 0.8rem;
+  color: #5d4037;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.info-about-us ul li::before {
+  content: '~';
+  color: #8d6e63;
+  position: absolute;
+  left: 0;
+  font-size: 1.5rem;
+}
