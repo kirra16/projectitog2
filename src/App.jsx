@@ -12,6 +12,7 @@ import Login from './components/AuthForm/Login';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Footer from './components/Footer/Footer';
 import './styles/layout.css';
+import Profile from './components/Profile/Profile';
 
 const ScrollToAnchor = () => {
   const location = useLocation();
@@ -157,6 +158,16 @@ function App() {
               )
             }
           />
+            <Route
+    path="/profile"
+    element={
+      user ? (
+        <Profile user={user} />
+      ) : (
+        <Navigate to="/login" />
+      )
+    }
+  />
         </Routes>
 
         <Footer />

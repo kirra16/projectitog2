@@ -1,3 +1,4 @@
+// Header.jsx
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
@@ -49,7 +50,13 @@ const Header = ({ user, setUser }) => {
         <div className="user-menu">
           {user ? (
             <>
-              <span>Привет, {user.name}</span>
+              <Link 
+                to="/profile" 
+                className={`profile-link ${location.pathname === '/profile' ? 'active' : ''}`}
+              >
+                Профиль
+              </Link>
+              <span className="user-greeting">Привет, {user.name}</span>
               <button onClick={handleLogout} className="logout-btn">
                 Выйти
               </button>

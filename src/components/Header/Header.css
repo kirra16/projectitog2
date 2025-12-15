@@ -92,12 +92,38 @@
 .login-btn:hover {
   background-color: #5d4037;
 }
+/* Добавьте в Header.css: */
+.profile-link {
+  text-decoration: none;
+  color: #5d4037;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.profile-link:hover {
+  color: #8d6e63;
+  background-color: rgba(141, 110, 99, 0.1);
+}
+
+/* Обновите user-menu для правильного отображения: */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
 @media (max-width: 768px) {
   .main-header {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+  }
+
+  .user-menu {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .nav-list {
