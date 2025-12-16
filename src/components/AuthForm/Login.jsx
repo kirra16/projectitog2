@@ -1,58 +1,104 @@
+// src/components/AuthForm/Login.jsx
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../api/client';
 import '../../styles/form.css';
 import './Login.css';
 
-const Login = ({ setUser, onRegister }) => {
+const Login = ({ onLogin, onRegister, users }) => {
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
     name: ''
   });
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Проверяем, есть ли в URL параметр register
+  React.useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.get('register') === 'true') {
+      setIsLogin(false);
+    }
+  }, [location]);
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!credentials.email) {
+      newErrors.email = 'Email обязателен';
+    } else if (!/\S+@\S+\.\S+/.test(credentials.email)) {
+      newErrors.email = 'Неверный формат email';
+    }
+    
+    if (!credentials.password) {
+      newErrors.password = 'Пароль обязателен';
+    } else if (credentials.password.length < 3) {
+      newErrors.password = 'Пароль должен быть не короче 3 символов';
+    }
+    
+    if (!isLogin) {
+      if (!credentials.name) {
+        newErrors.name = 'Имя обязательно';
+      } else if (credentials.name.length < 2) {
+        newErrors.name = 'Имя должно быть не короче 2 символов';
+      }
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (isLogin) {
-      try {
-        const { data } = await api.post('/api/login', {
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    try {
+      if (isLogin) {
+        // Вход
+        const result = await onLogin({
           email: credentials.email,
           password: credentials.password
         });
-        const token = `mock-jwt-token-${Date.now()}`;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(data));
-        setUser(data);
-      } catch {
-        alert('Неверный email или пароль');
-      }
-    } else {
-      if (!credentials.name || !credentials.email || !credentials.password) {
-        alert('Заполните все поля');
-        return;
-      }
-
-      if (credentials.password.length < 3) {
-        alert('Пароль должен быть не короче 3 символов');
-        return;
-      }
-
-      try {
-        const newUserPayload = {
+        
+        if (result.success) {
+          navigate('/');
+        } else {
+          alert('Неверный email или пароль');
+        }
+      } else {
+        // Регистрация
+        const result = await onRegister({
           email: credentials.email,
           password: credentials.password,
           name: credentials.name
-        };
-        await onRegister(newUserPayload);
-        alert('Регистрация прошла успешно! Добро пожаловать!');
-      } catch (error) {
-        if (error?.response?.status === 409) {
-          alert('Пользователь с таким email уже существует');
+        });
+        
+        if (result.success) {
+          alert('Регистрация прошла успешно! Добро пожаловать!');
+          navigate('/');
         } else {
-          alert('Ошибка регистрации, попробуйте ещё раз');
+          if (result.error?.response?.status === 409) {
+            alert('Пользователь с таким email уже существует');
+          } else {
+            alert('Ошибка регистрации, попробуйте ещё раз');
+          }
         }
       }
+    } catch (error) {
+      console.error('Auth error:', error);
+      alert('Произошла ошибка. Пожалуйста, попробуйте снова.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,22 +108,38 @@ const Login = ({ setUser, onRegister }) => {
       ...prev,
       [name]: value
     }));
+    
+    // Очищаем ошибку при изменении поля
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
   const handleFormSwitch = () => {
     setIsLogin(!isLogin);
     setCredentials({ email: '', password: '', name: '' });
+    setErrors({});
   };
 
   return (
     <div className="login-section">
       <div className="content-section">
-        <div className="form">
-          <h3>{isLogin ? 'Войти' : 'Регистрация'}</h3>
+        <div className="form auth-form">
+          <h3>{isLogin ? 'Вход в личный кабинет' : 'Регистрация'}</h3>
+          
+          <p className="auth-subtitle">
+            {isLogin 
+              ? 'Введите email и пароль для входа в систему' 
+              : 'Заполните все поля для создания нового аккаунта'
+            }
+          </p>
 
           <form onSubmit={handleSubmit}>
             {!isLogin && (
-              <>
+              <div className="form-group">
                 <label htmlFor="name">Имя:</label>
                 <input
                   type="text"
@@ -85,37 +147,107 @@ const Login = ({ setUser, onRegister }) => {
                   name="name"
                   value={credentials.name}
                   onChange={handleInputChange}
-                  required={!isLogin}
                   placeholder="Ваше имя"
-                  minLength="2"
+                  className={errors.name ? 'error' : ''}
+                  disabled={isLoading}
                 />
-              </>
+                {errors.name && <span className="error-message">{errors.name}</span>}
+              </div>
             )}
 
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" value={credentials.email} onChange={handleInputChange} required placeholder="Ваш email" />
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={credentials.email}
+                onChange={handleInputChange}
+                placeholder="Ваш email"
+                className={errors.email ? 'error' : ''}
+                disabled={isLoading}
+              />
+              {errors.email && <span className="error-message">{errors.email}</span>}
+            </div>
 
-            <label htmlFor="password">Пароль:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleInputChange}
-              required
-              placeholder="Минимум 3 символа"
-              minLength="3"
-            />
+            <div className="form-group">
+              <label htmlFor="password">Пароль:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={credentials.password}
+                onChange={handleInputChange}
+                placeholder="Минимум 3 символа"
+                className={errors.password ? 'error' : ''}
+                disabled={isLoading}
+              />
+              {errors.password && <span className="error-message">{errors.password}</span>}
+            </div>
 
-            <button type="submit">{isLogin ? 'Войти' : 'Зарегистрироваться'}</button>
+            {isLogin && (
+              <div className="form-options">
+                <label className="checkbox-label">
+                  <input type="checkbox" name="remember" />
+                  <span>Запомнить меня</span>
+                </label>
+                <a href="#" className="forgot-password">
+                  Забыли пароль?
+                </a>
+              </div>
+            )}
+
+            {!isLogin && (
+              <div className="form-terms">
+                <label className="checkbox-label">
+                  <input type="checkbox" required />
+                  <span>Я согласен с <a href="/terms">условиями использования</a></span>
+                </label>
+              </div>
+            )}
+
+            <button 
+              type="submit" 
+              className="submit-btn"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="loading-spinner">Загрузка...</span>
+              ) : (
+                isLogin ? 'Войти' : 'Зарегистрироваться'
+              )}
+            </button>
           </form>
 
-          <p>
-            {isLogin ? 'Нет аккаунта?' : 'Уже зарегистрированы?'}{' '}
-            <button type="button" className="link-btn" onClick={handleFormSwitch}>
-              {isLogin ? 'Создать аккаунт' : 'Войти'}
-            </button>
-          </p>
+          <div className="auth-switch">
+            <p>
+              {isLogin ? 'Нет аккаунта?' : 'Уже зарегистрированы?'}{' '}
+              <button 
+                type="button" 
+                className="link-btn" 
+                onClick={handleFormSwitch}
+                disabled={isLoading}
+              >
+                {isLogin ? 'Создать аккаунт' : 'Войти'}
+              </button>
+            </p>
+          </div>
+
+          {isLogin && (
+            <div className="demo-credentials">
+              <h4>Тестовые аккаунты:</h4>
+              <div className="demo-list">
+                <div className="demo-item">
+                  <strong>Администратор:</strong>
+                  <span>admin@banquet.ru / admin123</span>
+                </div>
+                <div className="demo-item">
+                  <strong>Пользователь:</strong>
+                  <span>user@mail.ru / user123</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

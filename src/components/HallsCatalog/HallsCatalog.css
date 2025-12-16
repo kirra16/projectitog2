@@ -1,0 +1,317 @@
+/* src/components/HallsCatalog/HallsCatalog.css */
+.halls-section {
+  background-color: #f9f5f0;
+  padding: 4rem 2rem;
+  position: relative;
+}
+
+.halls-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.halls-header h2 {
+  color: #5d4037;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: #8d6e63;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Контейнер для сетки */
+.halls-grid-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Сетка карточек 2x2 */
+.halls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Карточка зала - ШИРОКАЯ и НЕ ДЛИННАЯ */
+.hall-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 500px; /* Фиксируем минимальную высоту */
+}
+
+.hall-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(139, 69, 19, 0.2);
+}
+
+.hall-image {
+  position: relative;
+  height: 220px; /* Увеличиваем высоту изображения */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.hall-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hall-card:hover .hall-image img {
+  transform: scale(1.05);
+}
+
+.hall-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(93, 64, 55, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hall-card:hover .hall-overlay {
+  opacity: 1;
+}
+
+.view-details-btn {
+  background: white;
+  color: #5d4037;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.view-details-btn:hover {
+  background: #8d6e63;
+  color: white;
+}
+
+.hall-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.hall-content h3 {
+  color: #5d4037;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.hall-description {
+  color: #666;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  flex-grow: 1;
+  min-height: 60px; /* Фиксируем высоту описания */
+}
+
+/* Спецификации */
+.hall-specs {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spec-text {
+  color: #5d4037;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Особенности */
+.hall-features {
+  margin-bottom: 1.5rem;
+}
+
+.hall-features h4 {
+  color: #5d4037;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.features-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.feature-tag {
+  background: #f5e8dc;
+  color: #5d4037;
+  padding: 0.5rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Кнопки действий */
+.hall-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.details-btn, .book-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.details-btn {
+  background: #f5e8dc;
+  color: #5d4037;
+  border: 2px solid #f5e8dc;
+}
+
+.details-btn:hover {
+  background: #8d6e63;
+  color: white;
+  border-color: #8d6e63;
+}
+
+.book-btn {
+  background: #8d6e63;
+  color: white;
+  border: 2px solid #8d6e63;
+}
+
+.book-btn:hover {
+  background: #5d4037;
+  border-color: #5d4037;
+}
+
+/* Футер */
+.halls-footer {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid #e0d5cd;
+  text-align: center;
+}
+
+.halls-total {
+  color: #5d4037;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.halls-total strong {
+  color: #8d6e63;
+}
+
+.halls-note {
+  color: #8d6e63;
+  font-size: 0.9rem;
+  font-style: italic;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (max-width: 1100px) {
+  .halls-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .halls-grid {
+    grid-template-columns: 1fr; /* На планшетах - 1 колонка */
+  }
+  
+  .hall-card {
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .halls-section {
+    padding: 2rem 1rem;
+  }
+  
+  .halls-header h2 {
+    font-size: 2rem;
+  }
+  
+  .halls-grid-container {
+    padding: 0;
+  }
+  
+  .hall-image {
+    height: 200px;
+  }
+  
+  .hall-content {
+    padding: 1.25rem;
+  }
+  
+  .hall-actions {
+    flex-direction: column;
+  }
+  
+  .hall-specs {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hall-card {
+    min-height: 400px;
+  }
+  
+  .hall-image {
+    height: 180px;
+  }
+  
+  .hall-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .feature-tag {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+}

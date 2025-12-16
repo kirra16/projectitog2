@@ -1,0 +1,263 @@
+/* src/components/HallCard/HallCard.css */
+.hall-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hall-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(139, 69, 19, 0.2);
+}
+
+.hall-card-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.hall-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hall-card:hover .hall-card-image img {
+  transform: scale(1.05);
+}
+
+.hall-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(93, 64, 55, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hall-card:hover .hall-card-overlay {
+  opacity: 1;
+}
+
+.hall-card-view-btn {
+  background: white;
+  color: #5d4037;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.hall-card-view-btn:hover {
+  background: #8d6e63;
+  color: white;
+}
+
+.hall-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.hall-card-title {
+  color: #5d4037;
+  margin-bottom: 0.75rem;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.hall-card-description {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  flex-grow: 1;
+}
+
+.hall-card-info {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.hall-card-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hall-card-info-icon {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.hall-card-info-text {
+  color: #5d4037;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.hall-card-features {
+  margin-bottom: 1.5rem;
+}
+
+.hall-card-features-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.hall-card-feature-tag {
+  background: #f5e8dc;
+  color: #5d4037;
+  padding: 0.3rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.hall-card-feature-more {
+  background: #e0d5cd;
+  color: #5d4037;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.hall-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.hall-card-details-btn,
+.hall-card-book-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.hall-card-details-btn {
+  background: #f5e8dc;
+  color: #5d4037;
+  border: 2px solid #f5e8dc;
+}
+
+.hall-card-details-btn:hover {
+  background: #8d6e63;
+  color: white;
+  border-color: #8d6e63;
+}
+
+.hall-card-book-btn {
+  background: #8d6e63;
+  color: white;
+  border: 2px solid #8d6e63;
+}
+
+.hall-card-book-btn:hover {
+  background: #5d4037;
+  border-color: #5d4037;
+}
+
+/* Модификаторы для разных размеров */
+.hall-card.compact .hall-card-image {
+  height: 180px;
+}
+
+.hall-card.compact .hall-card-title {
+  font-size: 1.2rem;
+}
+
+.hall-card.compact .hall-card-description {
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.hall-card.compact .hall-card-actions {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Темная тема */
+.hall-card.dark {
+  background: #5d4037;
+}
+
+.hall-card.dark .hall-card-title {
+  color: #f5e8dc;
+}
+
+.hall-card.dark .hall-card-description {
+  color: #d7ccc8;
+}
+
+.hall-card.dark .hall-card-info-text {
+  color: #f5e8dc;
+}
+
+.hall-card.dark .hall-card-feature-tag {
+  background: #8d6e63;
+  color: white;
+}
+
+.hall-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px; /* Добавляем минимальную высоту */
+}
+@media (max-width: 768px) {
+  .hall-card-actions {
+    flex-direction: column;
+  }
+  
+  .hall-card-info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .hall-card-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hall-card-content {
+    padding: 1rem;
+  }
+  
+  .hall-card-title {
+    font-size: 1.2rem;
+  }
+}
