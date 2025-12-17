@@ -1,194 +1,375 @@
 // src/components/Header/Header.jsx
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './Header.css';
 
 const Header = ({ user, onLogout }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    onLogout();
-    navigate('/');
-    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  const isActive = (path) => {
-    return location.pathname === path ? 'active' : '';
-  };
-
-  // Функция для скролла к секциям на главной
   const scrollToSection = (sectionId, e) => {
-    if (location.pathname === '/') {
-      e.preventDefault();
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      // Если не на главной, переходим на главную и затем скроллим
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      // Если не на главной, переходим на главную
       navigate('/');
+      // Ждем немного и скроллим
       setTimeout(() => {
         const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
       }, 100);
+    } else {
+      // Если уже на главной, просто скроллим
+      const element = document.getElementById(sectionId);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
-    closeMobileMenu();
   };
 
+  // Функция для перехода на главную БЕЗ скролла к секциям
+  const goToHome = (e) => {
+    e.preventDefault();
+    // Если уже на главной, просто скроллим наверх
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Если не на главной, переходим на главную
+      navigate('/');
+    }
+  };
+
+  // Определяем активный пункт ТОЛЬКО для админа
+  const isActive = (path) => location.pathname === path;
+
   return (
-    <header className="main-header">
+    <header style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: '10px 20px',
+      backgroundColor: '#f5e8dc',
+      boxShadow: '0 2px 10px rgba(139, 69, 19, 0.1)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 1000,
+      gap: '15px'
+    }}>
       {/* Логотип */}
-      <div className="logo">
-        <Link to="/" onClick={closeMobileMenu}>
+      <div style={{ flexShrink: 0 }}>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <img 
             src="https://img.freepik.com/free-vector/abstract-company-logo_53876-120501.jpg" 
             alt="Логотип" 
-            width="50" 
-            height="50" 
+            style={{ width: '40px', height: '40px', borderRadius: '50%' }}
           />
-          <span className="logo-text">Banquet Halls</span>
+          <span style={{ fontSize: '16px', fontWeight: '600', color: '#5d4037' }}>
+            Banquet Halls
+          </span>
         </Link>
       </div>
 
-      {/* Кнопка мобильного меню */}
-      <button 
-        className="mobile-menu-toggle" 
-        onClick={toggleMobileMenu}
-        aria-label="Меню"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      {/* Основная навигация */}
-      <nav className={`main-nav ${isMobileMenuOpen ? 'open' : ''}`}>
-        <ul className="nav-list">
-          <li>
+      {/* НАВИГАТОР */}
+      <nav style={{
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+          backgroundColor: 'white',
+          borderRadius: '25px',
+          padding: '3px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        }}>
+          {/* ГЛАВНАЯ - ТЕПЕРЬ ОБЫЧНАЯ КНОПКА КАК ВСЕ */}
+          <Link 
+            to="/" 
+            onClick={goToHome}
+            style={{
+              textDecoration: 'none',
+              color: '#5d4037', // Всегда один цвет
+              padding: '8px 20px',
+              borderRadius: '20px',
+              backgroundColor: 'transparent', // Всегда прозрачный фон
+              fontWeight: '500',
+              fontSize: '14px',
+              display: 'block',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5e8dc';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            Главная
+          </Link>
+          
+          {/* ЗАЛЫ */}
+          <a 
+            href="#halls" 
+            onClick={(e) => scrollToSection('halls', e)}
+            style={{
+              textDecoration: 'none',
+              color: '#5d4037',
+              padding: '8px 20px',
+              borderRadius: '20px',
+              backgroundColor: 'transparent',
+              fontWeight: '500',
+              fontSize: '14px',
+              display: 'block',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5e8dc';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            Залы
+          </a>
+          
+          {/* ОТЗЫВЫ */}
+          <a 
+            href="#reviews" 
+            onClick={(e) => scrollToSection('reviews', e)}
+            style={{
+              textDecoration: 'none',
+              color: '#5d4037',
+              padding: '8px 20px',
+              borderRadius: '20px',
+              backgroundColor: 'transparent',
+              fontWeight: '500',
+              fontSize: '14px',
+              display: 'block',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5e8dc';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            Отзывы
+          </a>
+          
+          {/* БРОНИРОВАНИЕ */}
+          <a 
+            href="#booking" 
+            onClick={(e) => scrollToSection('booking', e)}
+            style={{
+              textDecoration: 'none',
+              color: '#5d4037',
+              padding: '8px 20px',
+              borderRadius: '20px',
+              backgroundColor: 'transparent',
+              fontWeight: '500',
+              fontSize: '14px',
+              display: 'block',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5e8dc';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            Бронирование
+          </a>
+          
+          {/* КАРТА ЗАЛОВ */}
+          <a 
+            href="#map" 
+            onClick={(e) => scrollToSection('map', e)}
+            style={{
+              textDecoration: 'none',
+              color: '#5d4037',
+              padding: '8px 20px',
+              borderRadius: '20px',
+              backgroundColor: 'transparent',
+              fontWeight: '500',
+              fontSize: '14px',
+              display: 'block',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f5e8dc';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            Карта залов
+          </a>
+          
+          {/* АДМИН ПАНЕЛЬ (если есть права) */}
+          {user && (user.role === 'admin' || user.role === 'manager') && (
             <Link 
-              to="/" 
-              className={isActive('/')}
-              onClick={closeMobileMenu}
+              to="/admin" 
+              style={{
+                textDecoration: 'none',
+                color: isActive('/admin') ? 'white' : '#5d4037',
+                padding: '8px 20px',
+                borderRadius: '20px',
+                backgroundColor: isActive('/admin') ? '#8d6e63' : 'transparent',
+                fontWeight: '500',
+                fontSize: '14px',
+                display: 'block',
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive('/admin')) {
+                  e.currentTarget.style.backgroundColor = '#f5e8dc';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive('/admin')) {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }
+              }}
             >
-              Главная
+              Админ
             </Link>
-          </li>
-          <li>
-            <a 
-              href="#halls" 
-              className={location.pathname === '/#halls' ? 'active' : ''}
-              onClick={(e) => scrollToSection('halls', e)}
-            >
-              Залы
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#reviews" 
-              className={location.pathname === '/#reviews' ? 'active' : ''}
-              onClick={(e) => scrollToSection('reviews', e)}
-            >
-              Отзывы
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#booking" 
-              className={location.pathname === '/#booking' ? 'active' : ''}
-              onClick={(e) => scrollToSection('booking', e)}
-            >
-              Бронирование
-            </a>
-          </li>
-          {(user && (user.role === 'admin' || user.role === 'manager')) && (
-            <li>
-              <Link 
-                to="/admin" 
-                className={isActive('/admin')}
-                onClick={closeMobileMenu}
-              >
-                Админ-панель
-              </Link>
-            </li>
           )}
-        </ul>
+        </div>
       </nav>
 
-      <div className="header-right">
-        <div className="contact-info">
-          <a 
-            href="https://wa.me/79281988835" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="contact-link"
-          >
-            <img 
-              src="https://img.icons8.com/ios-filled/50/000000/whatsapp.png" 
-              alt="WhatsApp" 
-              className="whatsapp-icon"
-            />
-            <span className="phone-number">+7 (928) 198-88-35</span>
-          </a>
-        </div>
+      {/* Правая часть - WhatsApp и пользователь */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', flexShrink: 0 }}>
+        {/* WhatsApp с иконкой */}
+        <a 
+          href="https://wa.me/79281988835" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            textDecoration: 'none',
+            padding: '8px 12px',
+            borderRadius: '4px',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(141, 110, 99, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
+        >
+          <img 
+            src="https://img.icons8.com/ios-filled/50/000000/whatsapp.png" 
+            alt="WhatsApp" 
+            style={{ width: '20px', height: '20px' }}
+          />
+          <span style={{ color: '#5d4037', fontWeight: '500', fontSize: '14px' }}>
+            +7 (928) 198-88-35
+          </span>
+        </a>
 
-        <div className="user-menu">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {user ? (
-            <div className="user-menu-logged">
+            <>
               <Link 
                 to="/profile" 
-                className={`profile-link ${isActive('/profile')}`}
-                onClick={closeMobileMenu}
+                style={{ 
+                  textDecoration: 'none', 
+                  color: '#5d4037',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}
               >
-                <span className="user-avatar">
-                  {user.name.charAt(0).toUpperCase()}
-                </span>
-                <span className="user-name">{user.name}</span>
+                Профиль
               </Link>
               <button 
-                onClick={handleLogout} 
-                className="logout-btn"
-                aria-label="Выйти"
+                onClick={onLogout}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#8d6e63',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  fontWeight: '500',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#5d4037';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#8d6e63';
+                }}
               >
                 Выйти
               </button>
-            </div>
+            </>
           ) : (
-            <div className="user-menu-guest">
+            <>
               <Link 
                 to="/login" 
-                className="login-btn"
-                onClick={closeMobileMenu}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#8d6e63',
+                  color: 'white',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#5d4037';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#8d6e63';
+                }}
               >
                 Войти
               </Link>
               <Link 
                 to="/login?register=true" 
-                className="register-btn"
-                onClick={closeMobileMenu}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#f5e8dc',
+                  color: '#5d4037',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  border: '1px solid #8d6e63',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#8d6e63';
+                  e.currentTarget.style.color = 'white';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f5e8dc';
+                  e.currentTarget.style.color = '#5d4037';
+                }}
               >
                 Регистрация
               </Link>
-            </div>
+            </>
           )}
         </div>
       </div>
-
-      {/* Оверлей для мобильного меню */}
-      {isMobileMenuOpen && (
-        <div className="mobile-menu-overlay" onClick={closeMobileMenu}></div>
-      )}
     </header>
   );
 };

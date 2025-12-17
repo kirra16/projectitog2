@@ -232,22 +232,6 @@ const Login = ({ onLogin, onRegister, users }) => {
               </button>
             </p>
           </div>
-
-          {isLogin && (
-            <div className="demo-credentials">
-              <h4>Тестовые аккаунты:</h4>
-              <div className="demo-list">
-                <div className="demo-item">
-                  <strong>Администратор:</strong>
-                  <span>admin@banquet.ru / admin123</span>
-                </div>
-                <div className="demo-item">
-                  <strong>Пользователь:</strong>
-                  <span>user@mail.ru / user123</span>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

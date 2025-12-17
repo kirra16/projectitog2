@@ -136,8 +136,8 @@
 }
 
 .whatsapp-icon {
-  width: 24px;
-  height: 24px;
+  width: 35px;
+  height: 35px;
   opacity: 0.8;
 }
 
@@ -196,8 +196,8 @@
 }
 
 .user-avatar {
-  width: 24px; 
-  height: 24px;
+  width: 16px;
+  height: 16px;
   background: linear-gradient(135deg, #8d6e63, #5d4037);
   border-radius: 50%;
   display: flex;
@@ -205,10 +205,9 @@
   justify-content: center;
   color: white;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   flex-shrink: 0;
 }
-
 
 .user-name {
   font-size: 0.9rem;
