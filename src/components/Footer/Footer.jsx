@@ -1,4 +1,3 @@
-// src/components/Footer/Footer.jsx
 import React from 'react';
 import Map from '../Map/Map';
 import './Footer.css';
@@ -6,10 +5,7 @@ import './Footer.css';
 const Footer = () => {
   return (
     <>
-      {/* Карта с адресами залов */}
       <Map />
-      
-      {/* Нижний футер с видео */}
       <footer className="main-footer">
         <div className="footer-content">
           <div className="video-container">

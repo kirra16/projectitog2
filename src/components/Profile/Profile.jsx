@@ -1,4 +1,3 @@
-// src/components/Profile/Profile.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../api/client';
@@ -15,18 +14,15 @@ const Profile = ({ user }) => {
       
       try {
         setIsLoading(true);
-        // Получаем все бронирования и отзывы, фильтруем на клиенте
         const [bookingsRes, reviewsRes] = await Promise.all([
           api.get('/api/bookings'),
           api.get('/api/reviews')
         ]);
-        
-        // Фильтруем бронирования текущего пользователя
+
         const myBookings = bookingsRes.data.filter(booking => 
           booking.userId === user.id || booking.userEmail === user.email
         );
-        
-        // Фильтруем отзывы текущего пользователя
+
         const myReviews = reviewsRes.data.filter(review => 
           review.author === user.name
         );
@@ -107,7 +103,6 @@ const Profile = ({ user }) => {
         </div>
 
         <div className="profile-sections">
-          {/* Мои бронирования */}
           <div className="profile-section-card">
             <h3>Мои бронирования</h3>
             {isLoading ? (
@@ -142,7 +137,6 @@ const Profile = ({ user }) => {
             )}
           </div>
 
-          {/* Мои отзывы */}
           <div className="profile-section-card">
             <h3>Мои отзывы</h3>
             {isLoading ? (

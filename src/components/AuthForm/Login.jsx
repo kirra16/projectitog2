@@ -1,4 +1,3 @@
-// src/components/AuthForm/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../api/client';
@@ -18,7 +17,6 @@ const Login = ({ onLogin, onRegister, users }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Проверяем, есть ли в URL параметр register
   React.useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     if (searchParams.get('register') === 'true') {
@@ -64,7 +62,6 @@ const Login = ({ onLogin, onRegister, users }) => {
     
     try {
       if (isLogin) {
-        // Вход
         const result = await onLogin({
           email: credentials.email,
           password: credentials.password
@@ -76,7 +73,6 @@ const Login = ({ onLogin, onRegister, users }) => {
           alert('Неверный email или пароль');
         }
       } else {
-        // Регистрация
         const result = await onRegister({
           email: credentials.email,
           password: credentials.password,
@@ -108,8 +104,7 @@ const Login = ({ onLogin, onRegister, users }) => {
       ...prev,
       [name]: value
     }));
-    
-    // Очищаем ошибку при изменении поля
+
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,

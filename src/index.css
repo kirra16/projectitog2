@@ -45,3 +45,26 @@ h4 {
 strong {
     color: #8D6E63;
 }
+
+@keyframes siteFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.App {
+  animation: siteFadeIn 1s ease-out;
+}
+
+body.landing-active {
+  overflow: hidden;
+}
+
+body.site-active {
+  overflow: auto;
+}

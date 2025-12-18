@@ -1,5 +1,4 @@
-﻿/* src/components/AuthForm/Login.css */
-.auth-form {
+﻿.auth-form {
   max-width: 500px;
   margin: 2rem auto;
   background: white;
@@ -251,7 +250,6 @@
   border: 1px solid #e0d5cd;
 }
 
-/* Анимация переключения форм */
 .auth-form {
   animation: fadeIn 0.3s ease;
 }
@@ -267,7 +265,6 @@
   }
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .auth-form {
     padding: 1.5rem;

@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { all, get } = require('../db');
 
-// Получение всех пользователей
 router.get('/', async (_req, res) => {
   try {
     const users = await all('SELECT id, email, name, role FROM users');
@@ -12,7 +11,6 @@ router.get('/', async (_req, res) => {
   }
 });
 
-// Получение пользователя по ID
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;

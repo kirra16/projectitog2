@@ -69,13 +69,13 @@ const db = new sqlite3.Database(DB_PATH, (err) => {
   }
 });
 
-// Включаем логирование SQL запросов
+
 db.on('trace', (sql) => {
   console.log('📝 SQL:', sql);
 });
 
 db.serialize(() => {
-  // Создаем таблицу пользователей
+
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY,
@@ -89,7 +89,6 @@ db.serialize(() => {
     else console.log('✅ Таблица users готова');
   });
 
-  // Создаем таблицу отзывов
   db.run(`
     CREATE TABLE IF NOT EXISTS reviews (
       id INTEGER PRIMARY KEY,
@@ -104,7 +103,6 @@ db.serialize(() => {
     else console.log('✅ Таблица reviews готова');
   });
 
-  // Создаем таблицу бронирований
   db.run(`
     CREATE TABLE IF NOT EXISTS bookings (
       id INTEGER PRIMARY KEY,
@@ -126,7 +124,6 @@ db.serialize(() => {
     else console.log('✅ Таблица bookings готова');
   });
 
-  // Проверяем и заполняем демо-данными
   db.get('SELECT COUNT(*) as count FROM users', (err, row) => {
     if (err) {
       console.error('❌ Ошибка проверки пользователей', err);
@@ -145,7 +142,6 @@ db.serialize(() => {
     } else {
       console.log(`👤 В базе уже есть ${row.count} пользователей`);
       
-      // Показываем существующих пользователей для отладки
       db.all('SELECT id, email, name, role FROM users', (err, rows) => {
         if (!err && rows) {
           console.log('📋 Существующие пользователи:');
@@ -158,7 +154,6 @@ db.serialize(() => {
   });
 });
 
-// Промис-обертки для работы с БД
 const run = (sql, params = []) =>
   new Promise((resolve, reject) => {
     console.log('▶️  Выполняем SQL:', sql.substring(0, 100) + '...');

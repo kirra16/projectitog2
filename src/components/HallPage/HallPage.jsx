@@ -1,4 +1,3 @@
-// src/components/HallPage/HallPage.jsx
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import './HallPage.css';
@@ -39,8 +38,7 @@ const HallPage = ({ getHallById, user, addBooking }) => {
     try {
       await addBooking(booking);
       alert('Заявка отправлена! Менеджер свяжется с вами для подтверждения.');
-      
-      // Сброс формы
+
       setBookingData({
         date: '',
         time: '',
@@ -85,8 +83,7 @@ const HallPage = ({ getHallById, user, addBooking }) => {
         <h1>{hall.name}</h1>
         <p className="hall-subtitle">{hall.description}</p>
       </div>
-      
-      {/* Галерея изображений */}
+
       <div className="hall-gallery">
         <div className="main-image">
           <img src={hall.images ? hall.images[0] : hall.image} alt={hall.name} />
@@ -99,8 +96,7 @@ const HallPage = ({ getHallById, user, addBooking }) => {
           </div>
         )}
       </div>
-      
-      {/* Основная информация и бронирование */}
+
       <div className="hall-info-grid">
         <div className="hall-details">
           <h2>Описание зала</h2>
@@ -122,7 +118,6 @@ const HallPage = ({ getHallById, user, addBooking }) => {
         </div>
         
         <div className="booking-section">
-          {/* Информация о зале */}
           <div className="booking-card">
             <div className="booking-info">
               <h3>Информация о бронировании</h3>
@@ -136,8 +131,7 @@ const HallPage = ({ getHallById, user, addBooking }) => {
               </div>
             </div>
           </div>
-          
-          {/* Полная форма бронирования */}
+
           <div className="booking-form-full">
             <h3>Бронирование зала</h3>
             

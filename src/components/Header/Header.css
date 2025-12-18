@@ -1,4 +1,3 @@
-/* src/components/Header/Header.css */
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -11,7 +10,6 @@
   z-index: 1000;
 }
 
-/* Логотип */
 .logo a {
   display: flex;
   align-items: center;
@@ -41,7 +39,6 @@
   }
 }
 
-/* Кнопка мобильного меню */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
@@ -67,7 +64,6 @@
   background: #8d6e63;
 }
 
-/* Основная навигация */
 .main-nav {
   flex: 1;
   margin: 0 2rem;
@@ -108,14 +104,12 @@
   background-color: #5d4037;
 }
 
-/* Правая часть хедера */
 .header-right {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-/* Контактная информация */
 .contact-info {
   display: flex;
   align-items: center;
@@ -154,7 +148,6 @@
   }
 }
 
-/* Пользовательское меню */
 .user-menu {
   display: flex;
   align-items: center;
@@ -263,7 +256,6 @@
   color: white;
 }
 
-/* Мобильное меню */
 @media (max-width: 768px) {
   .main-header {
     padding: 1rem;
@@ -340,7 +332,6 @@
   }
 }
 
-/* Мобильный оверлей */
 .mobile-menu-overlay {
   position: fixed;
   top: 0;
@@ -351,7 +342,6 @@
   z-index: 999;
 }
 
-/* Анимация для кнопки меню при открытии */
 .mobile-menu-toggle.open span:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
 }
@@ -364,7 +354,6 @@
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Дополнительные медиа-запросы */
 @media (max-width: 480px) {
   .logo img {
     width: 40px;

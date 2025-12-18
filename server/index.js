@@ -226,7 +226,6 @@ app.patch('/api/bookings/:id/status', async (req, res) => {
   }
 });
 
-// ============ DEBUG ENDPOINTS ============
 app.get('/api/debug/users', async (_req, res) => {
   try {
     const users = await all('SELECT * FROM users');
@@ -259,7 +258,6 @@ app.get('/api/debug/data', async (_req, res) => {
   }
 });
 
-// ============ START SERVER ============
 app.listen(PORT, () => {
   console.log(`✅ API сервер запущен на http://localhost:${PORT}`);
   console.log(`📊 Доступные эндпоинты:`);

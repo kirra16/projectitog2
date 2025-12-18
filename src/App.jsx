@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import LandingPage from './components/LandingPage/LandingPage';
 import api from './api/client';
 import Header from './components/Header/Header';
 import HeroSection from './components/HeroSection/HeroSection';
@@ -30,14 +31,24 @@ const ScrollToAnchor = () => {
   return null;
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 function App() {
   const [user, setUser] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [showLanding, setShowLanding] = useState(true);
 
-  // Данные залов
   const [halls] = useState([
     { 
       id: 1, 
@@ -109,7 +120,6 @@ function App() {
     }
   ]);
 
-  // Загрузка пользователя из localStorage при загрузке
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
@@ -123,7 +133,6 @@ function App() {
     }
   }, []);
 
-  // Загрузка данных с сервера
   useEffect(() => {
     const fetchInitial = async () => {
       try {
@@ -144,7 +153,23 @@ function App() {
     fetchInitial();
   }, []);
 
-  // Функции для работы с отзывами
+  const handleEnterSite = () => {
+    if (window.location.hash) {
+      window.history.replaceState(null, null, ' ');
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+    
+    setShowLanding(false);
+  };
+
+  if (showLanding) {
+    return <LandingPage onEnter={handleEnterSite} />;
+  }
+
   const addReview = async (newReview) => {
     try {
       const { data } = await api.post('/api/reviews', newReview);
@@ -178,7 +203,6 @@ function App() {
     }
   };
 
-  // Функции для работы с бронированиями
   const addBooking = async (newBooking) => {
     try {
       const { data } = await api.post('/api/bookings', newBooking);
@@ -201,7 +225,6 @@ function App() {
     }
   };
 
-  // Функции для работы с пользователями
   const handleRegister = async (newUser) => {
     try {
       const { data } = await api.post('/api/register', newUser);
@@ -236,8 +259,6 @@ function App() {
     localStorage.removeItem('user');
     setUser(null);
   };
-
-  // Функция для получения данных зала по ID
   const getHallById = (id) => {
     return halls.find(hall => hall.id === parseInt(id));
   };
@@ -256,9 +277,9 @@ function App() {
       <div className="App">
         <Header user={user} onLogout={handleLogout} />
         <ScrollToAnchor />
+        <ScrollToTop />
 
         <Routes>
-          {/* Главная страница */}
           <Route
             path="/"
             element={
@@ -278,8 +299,6 @@ function App() {
               </>
             }
           />
-
-          {/* Страница входа/регистрации */}
           <Route
             path="/login"
             element={
@@ -294,8 +313,6 @@ function App() {
               )
             }
           />
-
-          {/* Страница профиля */}
           <Route
             path="/profile"
             element={
@@ -306,8 +323,6 @@ function App() {
               )
             }
           />
-
-          {/* Страница детального просмотра зала */}
           <Route
             path="/hall/:id"
             element={
@@ -319,8 +334,6 @@ function App() {
               />
             }
           />
-
-          {/* Админ-панель */}
           <Route
             path="/admin"
             element={
@@ -337,8 +350,6 @@ function App() {
               )
             }
           />
-
-          {/* Резервный маршрут для несуществующих страниц */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
 

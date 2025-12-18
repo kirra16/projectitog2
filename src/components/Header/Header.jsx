@@ -1,4 +1,3 @@
-// src/components/Header/Header.jsx
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -10,33 +9,26 @@ const Header = ({ user, onLogout }) => {
   const scrollToSection = (sectionId, e) => {
     e.preventDefault();
     if (location.pathname !== '/') {
-      // Если не на главной, переходим на главную
       navigate('/');
-      // Ждем немного и скроллим
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     } else {
-      // Если уже на главной, просто скроллим
       const element = document.getElementById(sectionId);
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Функция для перехода на главную БЕЗ скролла к секциям
   const goToHome = (e) => {
     e.preventDefault();
-    // Если уже на главной, просто скроллим наверх
     if (location.pathname === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // Если не на главной, переходим на главную
       navigate('/');
     }
   };
 
-  // Определяем активный пункт ТОЛЬКО для админа
   const isActive = (path) => location.pathname === path;
 
   return (
@@ -52,7 +44,6 @@ const Header = ({ user, onLogout }) => {
       zIndex: 1000,
       gap: '15px'
     }}>
-      {/* Логотип */}
       <div style={{ flexShrink: 0 }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <img 
@@ -65,8 +56,6 @@ const Header = ({ user, onLogout }) => {
           </span>
         </Link>
       </div>
-
-      {/* НАВИГАТОР */}
       <nav style={{
         flex: 1,
         display: 'flex',
@@ -81,16 +70,15 @@ const Header = ({ user, onLogout }) => {
           padding: '3px',
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
         }}>
-          {/* ГЛАВНАЯ - ТЕПЕРЬ ОБЫЧНАЯ КНОПКА КАК ВСЕ */}
           <Link 
             to="/" 
             onClick={goToHome}
             style={{
               textDecoration: 'none',
-              color: '#5d4037', // Всегда один цвет
+              color: '#5d4037', 
               padding: '8px 20px',
               borderRadius: '20px',
-              backgroundColor: 'transparent', // Всегда прозрачный фон
+              backgroundColor: 'transparent', 
               fontWeight: '500',
               fontSize: '14px',
               display: 'block',
@@ -107,8 +95,7 @@ const Header = ({ user, onLogout }) => {
           >
             Главная
           </Link>
-          
-          {/* ЗАЛЫ */}
+
           <a 
             href="#halls" 
             onClick={(e) => scrollToSection('halls', e)}
@@ -134,8 +121,7 @@ const Header = ({ user, onLogout }) => {
           >
             Залы
           </a>
-          
-          {/* ОТЗЫВЫ */}
+
           <a 
             href="#reviews" 
             onClick={(e) => scrollToSection('reviews', e)}
@@ -161,8 +147,7 @@ const Header = ({ user, onLogout }) => {
           >
             Отзывы
           </a>
-          
-          {/* БРОНИРОВАНИЕ */}
+
           <a 
             href="#booking" 
             onClick={(e) => scrollToSection('booking', e)}
@@ -188,8 +173,7 @@ const Header = ({ user, onLogout }) => {
           >
             Бронирование
           </a>
-          
-          {/* КАРТА ЗАЛОВ */}
+
           <a 
             href="#map" 
             onClick={(e) => scrollToSection('map', e)}
@@ -215,8 +199,7 @@ const Header = ({ user, onLogout }) => {
           >
             Карта залов
           </a>
-          
-          {/* АДМИН ПАНЕЛЬ (если есть права) */}
+
           {user && (user.role === 'admin' || user.role === 'manager') && (
             <Link 
               to="/admin" 
@@ -249,9 +232,7 @@ const Header = ({ user, onLogout }) => {
         </div>
       </nav>
 
-      {/* Правая часть - WhatsApp и пользователь */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px', flexShrink: 0 }}>
-        {/* WhatsApp с иконкой */}
         <a 
           href="https://wa.me/79281988835" 
           target="_blank" 

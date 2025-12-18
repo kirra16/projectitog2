@@ -1,4 +1,3 @@
-// src/components/HallsCatalog/HallsCatalog.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './HallsCatalog.css';

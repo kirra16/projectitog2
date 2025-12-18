@@ -1,4 +1,3 @@
-/* src/components/HallsCatalog/HallsCatalog.css */
 .halls-section {
   background-color: #f9f5f0;
   padding: 4rem 2rem;
@@ -23,22 +22,19 @@
   margin: 0 auto;
 }
 
-/* Контейнер для сетки */
 .halls-grid-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Сетка карточек 2x2 */
 .halls-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
-/* Карточка зала - ШИРОКАЯ и НЕ ДЛИННАЯ */
 .hall-card {
   background: white;
   border-radius: 12px;
@@ -48,7 +44,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  min-height: 500px; /* Фиксируем минимальную высоту */
+  min-height: 500px;
 }
 
 .hall-card:hover {
@@ -58,7 +54,7 @@
 
 .hall-image {
   position: relative;
-  height: 220px; /* Увеличиваем высоту изображения */
+  height: 220px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -128,10 +124,9 @@
   line-height: 1.5;
   font-size: 0.95rem;
   flex-grow: 1;
-  min-height: 60px; /* Фиксируем высоту описания */
+  min-height: 60px;
 }
 
-/* Спецификации */
 .hall-specs {
   display: flex;
   gap: 1.5rem;
@@ -152,7 +147,6 @@
   font-size: 0.95rem;
 }
 
-/* Особенности */
 .hall-features {
   margin-bottom: 1.5rem;
 }
@@ -179,7 +173,6 @@
   display: inline-block;
 }
 
-/* Кнопки действий */
 .hall-actions {
   display: flex;
   gap: 0.75rem;
@@ -221,7 +214,6 @@
   border-color: #5d4037;
 }
 
-/* Футер */
 .halls-footer {
   max-width: 1200px;
   margin: 2rem auto 0;
@@ -249,7 +241,6 @@
   line-height: 1.5;
 }
 
-/* Адаптивность */
 @media (max-width: 1100px) {
   .halls-grid {
     gap: 1.5rem;
@@ -258,7 +249,7 @@
 
 @media (max-width: 900px) {
   .halls-grid {
-    grid-template-columns: 1fr; /* На планшетах - 1 колонка */
+    grid-template-columns: 1fr;
   }
   
   .hall-card {

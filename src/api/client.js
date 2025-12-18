@@ -1,4 +1,3 @@
-// src/api/client.js
 import axios from 'axios';
 
 const api = axios.create({
@@ -8,7 +7,6 @@ const api = axios.create({
   },
 });
 
-// Добавляем интерсептор для логирования
 api.interceptors.request.use(
   (config) => {
     console.log(`➡️  ${config.method.toUpperCase()} ${config.baseURL}${config.url}`);

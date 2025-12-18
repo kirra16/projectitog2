@@ -1,4 +1,3 @@
-// src/components/Map/Map.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import './Map.css';
 
@@ -40,15 +39,12 @@ const Map = () => {
   ];
 
   useEffect(() => {
-    // Функция загрузки карты
     const loadMap = () => {
-      // Проверяем, загружена ли уже библиотека
       if (window.ymaps && window.ymaps.Map) {
         initMap();
         return;
       }
 
-      // Если уже пытаемся загрузить, ждем
       if (window.loadingYandexMaps) {
         const checkInterval = setInterval(() => {
           if (window.ymaps && window.ymaps.Map) {
@@ -60,8 +56,6 @@ const Map = () => {
       }
 
       window.loadingYandexMaps = true;
-
-      // Используем простую версию без API ключа
       const script = document.createElement('script');
       script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
       script.async = true;
@@ -95,19 +89,16 @@ const Map = () => {
 
     const initMap = () => {
       try {
-        // Очищаем контейнер
         if (mapContainer.current) {
           mapContainer.current.innerHTML = '';
         }
 
-        // Создаем карту
         mapInstance.current = new window.ymaps.Map(mapContainer.current, {
           center: [47.231350, 39.723281],
           zoom: 12,
           controls: ['zoomControl', 'fullscreenControl']
         });
 
-        // Добавляем метки
         hallsLocations.forEach((hall) => {
           const placemark = new window.ymaps.Placemark(
             hall.coordinates,
@@ -130,7 +121,6 @@ const Map = () => {
           mapInstance.current.geoObjects.add(placemark);
         });
 
-        // Устанавливаем границы, чтобы все метки были видны
         const bounds = mapInstance.current.geoObjects.getBounds();
         if (bounds) {
           mapInstance.current.setBounds(bounds, {
@@ -148,7 +138,6 @@ const Map = () => {
 
     loadMap();
 
-    // Очистка
     return () => {
       if (mapInstance.current && mapInstance.current.destroy) {
         try {
@@ -161,7 +150,6 @@ const Map = () => {
     };
   }, []);
 
-  // Если все еще не работает, вот ЗАПАСНОЙ ВАРИАНТ - статичная картинка
   const renderFallbackMap = () => (
     <div className="fallback-map">
       <img 

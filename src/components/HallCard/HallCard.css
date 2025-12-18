@@ -1,4 +1,3 @@
-/* src/components/HallCard/HallCard.css */
 .hall-card {
   background: white;
   border-radius: 12px;
@@ -185,7 +184,6 @@
   border-color: #5d4037;
 }
 
-/* Модификаторы для разных размеров */
 .hall-card.compact .hall-card-image {
   height: 180px;
 }
@@ -204,7 +202,6 @@
   gap: 0.5rem;
 }
 
-/* Темная тема */
 .hall-card.dark {
   background: #5d4037;
 }
@@ -235,7 +232,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 500px; /* Добавляем минимальную высоту */
+  min-height: 500px;
 }
 @media (max-width: 768px) {
   .hall-card-actions {
